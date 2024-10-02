@@ -1,0 +1,20 @@
+# Use the official Golang image
+FROM golang:1.22
+
+# Set the Current Working Directory inside the container
+WORKDIR /publisherApp
+
+# Copy go.mod and go.sum files into the working directory
+COPY publisherApp/go.mod publisherApp/go.sum ./
+
+# Download all dependencies
+RUN go mod download
+
+# Copy the source code into the working directory
+COPY publisherApp/ .
+
+# Build the application
+RUN go build -o publisher .
+
+# Command to run the executable
+CMD ["./publisher"]
