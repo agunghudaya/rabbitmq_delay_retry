@@ -34,3 +34,10 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+
+  externalservice:
+    build:
+      context: .
+      dockerfile: externalServiceApp/Dockerfile
+    ports:
+      - "8081:8081"  # Exposing port 8081

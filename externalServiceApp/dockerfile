@@ -1,0 +1,21 @@
+# Use the official Golang image
+FROM golang:1.22
+
+# Set the Current Working Directory inside the container
+WORKDIR /externalServiceApp
+
+# Copy go.mod and go.sum files into the working directory
+COPY externalServiceApp/go.mod ./
+#externalServiceApp/go.sum ./
+
+# Download all dependencies
+RUN go mod download
+
+# Copy the source code into the working directory
+COPY externalServiceApp/ .
+
+# Build the application
+RUN go build -o externalservice .
+
+# Command to run the executable
+CMD ["./externalservice"]
